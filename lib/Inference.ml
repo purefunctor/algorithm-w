@@ -43,20 +43,20 @@ let rec infer environment = function
      let constraints = [f_t, MonoFun (x_t, unsolved)] in
      (unsolved, List.concat [f_c;x_c;constraints])
   | ExprLet (x, v, e) ->
-     let (b_t, b_c) = infer environment v in
-     let b_s = Constraints.solve b_c in
-     let b_t =
+     let (v_t, v_c) = infer environment v in
+     let v_s = Constraints.solve v_c in
+     let v_t =
        generalize
-         (Env.apply_subst b_s environment)
-         (Mono.apply_subst b_s b_t)
+         (Env.apply_subst v_s environment)
+         (Mono.apply_subst v_s v_t)
      in
      let environment =
        Environment.(
-         remove x environment |> Env.apply_subst b_s |> extend x b_t
+         remove x environment |> Env.apply_subst v_s |> extend x v_t
        )
      in
      let (e_t, e_c) = infer environment e in
-     (e_t, List.concat [b_c;e_c])
+     (e_t, List.concat [v_c;e_c])
 
 let inferExpression e =
   let (t, c) = infer Environment.empty e in
