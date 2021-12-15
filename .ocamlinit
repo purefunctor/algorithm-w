@@ -1,0 +1,9 @@
+open AlgorithmW
+open AlgorithmW.Constraints
+open AlgorithmW.Environment
+open AlgorithmW.Inference
+open AlgorithmW.Substitution
+open AlgorithmW.Syntax
+open AlgorithmW.Unification
+
+let list_of_set s = List.of_seq (StringSet.to_seq s)
