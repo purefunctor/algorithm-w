@@ -1,4 +1,3 @@
 (executable
- (public_name algorithm_w)
  (name main)
  (libraries AlgorithmW))
